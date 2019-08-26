@@ -9,6 +9,10 @@ image: ## Build Docker image with all languages
 image-%: ## Build Docker image with single language LANG
 	docker build -t polygott-$(*) --build-arg LANGS=$(*) .
 
+.PHONY: custom
+custom %: ## Build custom docker image with langs in comma separated string
+	docker build -t polygott-custom --build-arg LANGS=$(filter-out $@,$(MAKECMDGOALS)) .
+
 .PHONY: run
 run: image ## Build and run image with all languages
 	docker run -it --rm polygott
