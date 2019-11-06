@@ -5,7 +5,6 @@ extensions = [
 ]
 packages = [
   "r-base",
-  "rlang",
   "r-base-dev",
   "r-recommended",
   "littler",
