@@ -32,6 +32,16 @@ COPY --from=0 /out/polygott-survey /usr/bin/polygott-survey
 COPY --from=0 /out/polygott-lang-setup /usr/bin/polygott-lang-setup
 COPY --from=0 /out/polygott-x11-vnc /usr/bin/polygott-x11-vnc
 
+RUN curl -O https://www-us.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz && \
+tar xvf spark-2.4.4-bin-hadoop2.7.tgz && \
+mv spark-2.4.4-bin-hadoop2.7/ /opt/spark
+
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+
+
+
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 
