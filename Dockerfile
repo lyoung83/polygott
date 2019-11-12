@@ -32,15 +32,22 @@ COPY --from=0 /out/polygott-survey /usr/bin/polygott-survey
 COPY --from=0 /out/polygott-lang-setup /usr/bin/polygott-lang-setup
 COPY --from=0 /out/polygott-x11-vnc /usr/bin/polygott-x11-vnc
 
+ENV JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+
 RUN curl -O https://www-us.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz && \
 tar xvf spark-2.4.4-bin-hadoop2.7.tgz && \
-mv spark-2.4.4-bin-hadoop2.7/ /opt/spark
+mv spark-2.4.4-bin-hadoop2.7/ /opt/spark &&\
+curl -O https://archive.apache.org/dist/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz && \
+tar -xzvf hadoop-2.7.7.tar.gz && \
+mv hadoop-2.7.7 /usr/local/hadoop
+
+
 
 ENV SPARK_HOME=/opt/spark
 ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-
-
-
+ENV HADOOP_HOME=/usr/local/hadoop
+ENV HADOOP_INSTALL=$HADOOP_HOME HADOOP_MAPRED_HOME=$HADOOP_HOME HADOOP_COMMON_HOME=$HADOOP_HOME HADOOP_HDFS_HOME=$HADOOP_HOME YARN_HOME=$HADOOP_HOME
+ENV HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
 
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8

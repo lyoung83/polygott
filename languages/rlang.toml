@@ -9,7 +9,8 @@ packages = [
   "r-recommended",
   "littler",
   "r-cran-littler",
-  "r-cran-stringr"
+  "r-cran-stringr",
+  "sparklyr"
 ]
 
 [run]
