@@ -32,7 +32,8 @@ COPY --from=0 /out/polygott-survey /usr/bin/polygott-survey
 COPY --from=0 /out/polygott-lang-setup /usr/bin/polygott-lang-setup
 COPY --from=0 /out/polygott-x11-vnc /usr/bin/polygott-x11-vnc
 
-ENV JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+RUN apt update -y && apt install openjdk-8-jdk -y
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 RUN curl -O https://www-us.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz && \
 tar xvf spark-2.4.4-bin-hadoop2.7.tgz && \
